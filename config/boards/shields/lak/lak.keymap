@@ -4,12 +4,73 @@
 / {
     keymap {
         compatible = "zmk,keymap";
+        
+        // ===== LAYER 0: BASE LAYER =====
         default_layer {
             bindings = <
-                &kp A &kp A &kp A &kp A &kp A &kp A &kp A &kp A &kp A &kp A
-                &kp A &kp A &kp A &kp A &kp A &kp A &kp A &kp A &kp A &kp A
-                &kp A &kp A &kp A &kp A &kp A &kp A &kp A &kp A &kp A &kp A
-                &kp A &kp A &kp A &kp A &kp A &kp A &kp A &kp A &kp A &kp A
+                // Hàng 0 (ROW0): Q W E R T | Y U I O P
+                &kp Q  &kp W  &kp E  &kp R  &kp T     &kp Y  &kp U  &kp I  &kp O  &kp P
+                
+                // Hàng 1 (ROW1): A S D F G | H J K L ;
+                &kp A  &kp S  &kp D  &kp F  &kp G     &kp H  &kp J  &kp K  &kp L  &kp SEMI
+                
+                // Hàng 2 (ROW2): Z X C V B | N M , . /
+                &kp Z  &kp X  &kp C  &kp V  &kp B     &kp N  &kp M  &kp COMMA &kp DOT &kp FSLH
+                
+                // Hàng 3 (ROW3): Space/Layer keys
+                // Space left, Layer1, Layer2, Mods... theo layout của bạn
+                &kp SPACE  &mo 1  &mo 2  &kp LCTRL &kp LALT     &kp LSHFT &kp RSHFT &kp RALT &kp RCTRL &kp SPACE
+            >;
+        };
+        
+        // ===== LAYER 1: NAVIGATION & NUMBERS =====
+        layer_1 {
+            bindings = <
+                // Numbers row (numpad layout)
+                &kp N7 &kp N8 &kp N9 &kp KP_PLUS  &trans     &kp HOME &kp UP   &kp END  &kp PG_UP &kp VOL_UP
+                
+                // Navigation cluster
+                &kp N4 &kp N5 &kp N6 &kp KP_MINUS &trans     &kp LEFT &kp DOWN &kp RIGHT &kp PG_DN &kp VOL_DN
+                
+                // More numbers and symbols
+                &kp N1 &kp N2 &kp N3 &kp KP_ASTERISK &trans   &kp INS  &kp DEL  &kp BSPC &kp PSCRN &kp TRANS
+                
+                // Space and return to base
+                &kp SPACE &trans &trans &kp KP_SLASH &kp KP_DOT     &kp RET &trans &trans &trans &kp SPACE
+            >;
+        };
+        
+        // ===== LAYER 2: FUNCTION KEYS & MOUSE =====
+        layer_2 {
+            bindings = <
+                // Function keys F1-F10
+                &kp F1 &kp F2 &kp F3 &kp F4 &kp F5     &kp F6 &kp F7 &kp F8 &kp F9 &kp F10
+                
+                // Mouse controls (simplified)
+                &kp MB1 &kp MS_U &kp MB2 &kp WH_U &trans     &kp F11 &kp F12 &kp PRSC &kp SLCK &kp PAUSE
+                
+                // More mouse controls
+                &kp MS_L &kp MS_D &kp MS_R &kp WH_D &trans   &kp C_PP &kp C_N &kp C_VUP &kp C_VDN &kp MUTE
+                
+                // Layer toggle and special keys
+                &kp SPACE &trans &trans &kp LGUI &kp LALT     &kp LSHFT &kp CAPS &trans &trans &kp SPACE
+            >;
+        };
+        
+        // ===== LAYER 3: MEDIA & UTILITIES =====
+        layer_3 {
+            bindings = <
+                // Media controls
+                &kp C_PP &kp C_N &kp C_VUP &kp C_VDN &kp MUTE     &kp LA(CHR) &kp LA(GRV) &kp LA(BSLH) &kp LA(LBRC) &kp LA(RBRC)
+                
+                // RGB controls
+                &kp RGB_TOG &kp RGB_HUI &kp RGB_HUD &kp RGB_SAI &kp RGB_SAD     &kp RGB_VAI &kp RGB_VAD &kp RGB_SPI &kp RGB_SPD &kp RGB_MOD
+                
+                // System keys
+                &kp POWER &kp SLEEP &kp WAKE &kp BT_CLR &kp BT_NXT     &kp BT_PRV &kp BT_SEL 0 &kp BT_SEL 1 &kp BT_SEL 2 &kp BT_SEL 3
+                
+                // Reset and bootloader
+                &kp SPACE &trans &trans &kp RESET &kp BOOT     &kp U_RDO &kp U_PST &kp U_CPY &kp U_CUT &kp SPACE
             >;
         };
     };
