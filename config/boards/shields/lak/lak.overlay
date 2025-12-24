@@ -24,28 +24,27 @@ RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(3,6) RC(3,7) RC(3,8) RC(3,9)
         label = "KSCAN";
         diode-direction = "col2row";
 
-        // ===== COL PINS (OUTPUT) =====
-        // 10 cột - sử dụng các chân GPIO khả dụng
+        // ===== COL PINS (OUTPUT) - Nice!Nano v2 =====
+        // Sử dụng các chân GPIO có sẵn trên header
         col-gpios
-            = <&gpio0 2  GPIO_ACTIVE_HIGH>   // P0.02 - D2/A0 - COL0
-            , <&gpio0 3  GPIO_ACTIVE_HIGH>   // P0.03 - D3/A1 - COL1
-            , <&gpio0 4  GPIO_ACTIVE_HIGH>   // P0.04 - D4/A2 - COL2
-            , <&gpio0 5  GPIO_ACTIVE_HIGH>   // P0.05 - D5/A3 - COL3
-            , <&gpio0 6  GPIO_ACTIVE_HIGH>   // P0.06 - D6/A4 - COL4
-            , <&gpio0 7  GPIO_ACTIVE_HIGH>   // P0.07 - D7/A5 - COL5
-            , <&gpio0 8  GPIO_ACTIVE_HIGH>   // P0.08 - D8/A6 - COL6
-            , <&gpio0 9  GPIO_ACTIVE_HIGH>   // P0.09 - D9/A7 - COL7
-            , <&gpio0 10 GPIO_ACTIVE_HIGH>   // P0.10 - D10   - COL8
-            , <&gpio0 11 GPIO_ACTIVE_HIGH>   // P0.11 - D16   - COL9
+            = <&gpio0 4  GPIO_ACTIVE_HIGH>   // P0.04 - D2  - COL0
+            , <&gpio0 5  GPIO_ACTIVE_HIGH>   // P0.05 - D3  - COL1
+            , <&gpio0 6  GPIO_ACTIVE_HIGH>   // P0.06 - D4  - COL2
+            , <&gpio0 7  GPIO_ACTIVE_HIGH>   // P0.07 - D5  - COL3
+            , <&gpio0 8  GPIO_ACTIVE_HIGH>   // P0.08 - D6  - COL4
+            , <&gpio0 9  GPIO_ACTIVE_HIGH>   // P0.09 - D7  - COL5
+            , <&gpio0 10 GPIO_ACTIVE_HIGH>   // P0.10 - D8  - COL6
+            , <&gpio0 11 GPIO_ACTIVE_HIGH>   // P0.11 - D9  - COL7
+            , <&gpio0 12 GPIO_ACTIVE_HIGH>   // P0.12 - D10 - COL8
+            , <&gpio0 13 GPIO_ACTIVE_HIGH>   // P0.13 - D11 - COL9
             ;
 
-        // ===== ROW PINS (INPUT) =====
-        // 4 hàng - GPIO_PULL_DOWN
+        // ===== ROW PINS (INPUT) - GPIO_PULL_DOWN =====
         row-gpios
-            = <&gpio0 12 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>   // P0.12 - D14/MISO - ROW0
-            , <&gpio0 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>   // P0.13 - D15/SCK  - ROW1
-            , <&gpio0 14 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>   // P0.14 - D17      - ROW2
-            , <&gpio0 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>   // P0.15 - D18      - ROW3
+            = <&gpio0 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>   // P0.15 - D14/MISO - ROW0
+            , <&gpio0 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>   // P0.17 - D16/SCK  - ROW1
+            , <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>   // P0.20 - D21/RX   - ROW2
+            , <&gpio0 22 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>   // P0.22 - D23/TX   - ROW3
             ;
     };
 };
