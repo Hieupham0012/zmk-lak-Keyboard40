@@ -34,18 +34,18 @@
 		// Diode direction: col2row (diodes connected to rows)
 		diode-direction = "col2row";
 
-		// Column GPIO configurations (10 columns)
+		// Column GPIO configurations (10 columns) - REVERSED ORDER
 		col-gpios = <
-			&gpio0 31 GPIO_ACTIVE_HIGH  // Col 0 - PF4 -> P0.31
-			&gpio0 29 GPIO_ACTIVE_HIGH  // Col 1 - PF5 -> P0.29
-			&gpio0 2  GPIO_ACTIVE_HIGH  // Col 2 - PF6 -> P0.02
-			&gpio1 15 GPIO_ACTIVE_HIGH  // Col 3 - PF7 -> P1.15
-			&gpio1 13 GPIO_ACTIVE_HIGH  // Col 4 - PB1 -> P1.13
-			&gpio1 11 GPIO_ACTIVE_HIGH  // Col 5 - PB3 -> P1.11
-			&gpio0 10 GPIO_ACTIVE_HIGH  // Col 6 - PB2 -> P0.10
-			&gpio0 9  GPIO_ACTIVE_HIGH  // Col 7 - PB6 -> P0.09
-			&gpio1 6  GPIO_ACTIVE_HIGH  // Col 8 - PB5 -> P1.06
-			&gpio1 4  GPIO_ACTIVE_HIGH  // Col 9 - PB4 -> P1.04
+			&gpio1 4  GPIO_ACTIVE_HIGH  // Col 9 -> P1.04 (now Col 0)
+			&gpio1 6  GPIO_ACTIVE_HIGH  // Col 8 -> P1.06 (now Col 1)
+			&gpio0 9  GPIO_ACTIVE_HIGH  // Col 7 -> P0.09 (now Col 2)
+			&gpio0 10 GPIO_ACTIVE_HIGH  // Col 6 -> P0.10 (now Col 3)
+			&gpio1 11 GPIO_ACTIVE_HIGH  // Col 5 -> P1.11 (now Col 4)
+			&gpio1 13 GPIO_ACTIVE_HIGH  // Col 4 -> P1.13 (now Col 5)
+			&gpio1 15 GPIO_ACTIVE_HIGH  // Col 3 -> P1.15 (now Col 6)
+			&gpio0 2  GPIO_ACTIVE_HIGH  // Col 2 -> P0.02 (now Col 7)
+			&gpio0 29 GPIO_ACTIVE_HIGH  // Col 1 -> P0.29 (now Col 8)
+			&gpio0 31 GPIO_ACTIVE_HIGH  // Col 0 -> P0.31 (now Col 9)
 		>;
 
 		// Row GPIO configurations (4 rows) with pull-down
