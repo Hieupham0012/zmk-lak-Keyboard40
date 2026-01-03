@@ -51,5 +51,50 @@
       ]
     }
   },
-  "sensors": []
+  "sensors": [
+    {
+      "type": "encoder",
+      "name": "encoder_left",
+      "position": {
+        "row": 3,
+        "col": 0,
+        "x": 0,
+        "y": 3
+      },
+      "properties": {
+        "compatible": "alps,ec11",
+        "a_gpios": ["gpio0", 20, "GPIO_ACTIVE_HIGH", "GPIO_PULL_UP"],
+        "b_gpios": ["gpio0", 17, "GPIO_ACTIVE_HIGH", "GPIO_PULL_UP"],
+        "steps": 20
+      },
+      "bindings": {
+        "default": ["inc_dec_kp", "C_VOL_UP", "C_VOL_DN"],
+        "layer_1": ["inc_dec_kp", "PG_UP", "PG_DN"],
+        "layer_2": ["inc_dec_kp", "RIGHT_ARROW", "LEFT_ARROW"],
+        "layer_3": ["inc_dec_kp", "UP_ARROW", "DOWN_ARROW"]
+      }
+    },
+    {
+      "type": "encoder",
+      "name": "encoder_right",
+      "position": {
+        "row": 3,
+        "col": 9,
+        "x": 9,
+        "y": 3
+      },
+      "properties": {
+        "compatible": "alps,ec11",
+        "a_gpios": ["gpio0", 20, "GPIO_ACTIVE_HIGH", "GPIO_PULL_UP"],
+        "b_gpios": ["gpio0", 8, "GPIO_ACTIVE_HIGH", "GPIO_PULL_UP"],
+        "steps": 20
+      },
+      "bindings": {
+        "default": ["inc_dec_kp", "C_BRI_UP", "C_BRI_DN"],
+        "layer_1": ["inc_dec_kp", "HOME", "END"],
+        "layer_2": ["inc_dec_kp", "TAB", "LG(TAB)"],
+        "layer_3": ["inc_dec_kp", "KSC_NEXT", "KSC_PREV"]
+      }
+    }
+  ]
 }
