@@ -51,12 +51,12 @@
                 &to 0       &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans
                 
                 // Encoder bindings for layer 1
-                &mo 2    // Left encoder press
-                &kp PG_UP // Left encoder clockwise
-                &kp PG_DN // Left encoder counter-clockwise
-                &mo 2    // Right encoder press  
-                &kp HOME  // Right encoder clockwise
-                &kp END   // Right encoder counter-clockwise
+                &mo 2      // Left encoder press
+                &kp PG_UP  // Left encoder clockwise
+                &kp PG_DN  // Left encoder counter-clockwise
+                &mo 2      // Right encoder press  
+                &kp HOME   // Right encoder clockwise
+                &kp END    // Right encoder counter-clockwise
             >;
         };
 
@@ -69,12 +69,12 @@
                 &to 0   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
                 
                 // Encoder bindings for layer 2
-                &mo 3          // Left encoder press
+                &mo 3           // Left encoder press
                 &kp RIGHT_ARROW // Left encoder clockwise
                 &kp LEFT_ARROW  // Left encoder counter-clockwise
-                &mo 3          // Right encoder press  
-                &kp TAB        // Right encoder clockwise
-                &kp LG(TAB)    // Right encoder counter-clockwise
+                &mo 3           // Right encoder press  
+                &kp TAB         // Right encoder clockwise
+                &kp LG(TAB)     // Right encoder counter-clockwise
             >;
         };
 
@@ -87,17 +87,17 @@
                 &to 0   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
                 
                 // Encoder bindings for layer 3
-                &to 0         // Left encoder press
+                &to 0          // Left encoder press
                 &kp UP_ARROW   // Left encoder clockwise
                 &kp DOWN_ARROW // Left encoder counter-clockwise
-                &to 0         // Right encoder press  
-                &kp KSC_NEXT  // Right encoder clockwise
-                &kp KSC_PREV  // Right encoder counter-clockwise
+                &to 0          // Right encoder press  
+                &kp KSC_NEXT   // Right encoder clockwise
+                &kp KSC_PREV   // Right encoder counter-clockwise
             >;
         };
     };
 
-    // Encoder definitions - fixed to remove deprecated properties
+    // Encoder definitions
     left_encoder: encoder_left {
         compatible = "alps,ec11";
         a-gpios = <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
