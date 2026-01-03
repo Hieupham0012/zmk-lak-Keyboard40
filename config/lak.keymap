@@ -32,6 +32,14 @@
                 &kp A  &kp S      &kp D         &kp F         &kp G     &kp H      &kp J     &kp K      &kp L    &kp SEMI
                 &kp Z  &kp X      &kp C         &kp V         &kp B     &kp N      &kp M     &kp COMMA  &kp DOT  &kp FSLH
                 &to 1  &kp LCTRL  &kp LEFT_ALT  &kp LEFT_WIN  &kp BSPC  &kp SPACE  &kp LEFT  &kp DOWN   &kp UP   &kp RIGHT
+                
+                // Encoder bindings for layer 0
+                &mo 1        // Left encoder press
+                &kp C_VOL_UP // Left encoder clockwise
+                &kp C_VOL_DN // Left encoder counter-clockwise
+                &mo 1        // Right encoder press  
+                &kp C_BRI_UP // Right encoder clockwise
+                &kp C_BRI_DN // Right encoder counter-clockwise
             >;
         };
 
@@ -41,50 +49,71 @@
                 &trans      &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans
                 &trans      &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans
                 &to 0       &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans
+                
+                // Encoder bindings for layer 1
+                &mo 2    // Left encoder press
+                &kp PG_UP // Left encoder clockwise
+                &kp PG_DN // Left encoder counter-clockwise
+                &mo 2    // Right encoder press  
+                &kp HOME  // Right encoder clockwise
+                &kp END   // Right encoder counter-clockwise
             >;
         };
 
-        // Layer 2 - Trống, có thể cấu hình sau
+        // Layer 2 - Trống
         layer_2 {
             bindings = <
                 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
                 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
                 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
                 &to 0   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                
+                // Encoder bindings for layer 2
+                &mo 3          // Left encoder press
+                &kp RIGHT_ARROW // Left encoder clockwise
+                &kp LEFT_ARROW  // Left encoder counter-clockwise
+                &mo 3          // Right encoder press  
+                &kp TAB        // Right encoder clockwise
+                &kp LG(TAB)    // Right encoder counter-clockwise
             >;
         };
 
-        // Layer 3 - Trống, có thể cấu hình sau
+        // Layer 3 - Trống
         layer_3 {
             bindings = <
                 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
                 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
                 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
                 &to 0   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                
+                // Encoder bindings for layer 3
+                &to 0         // Left encoder press
+                &kp UP_ARROW   // Left encoder clockwise
+                &kp DOWN_ARROW // Left encoder counter-clockwise
+                &to 0         // Right encoder press  
+                &kp KSC_NEXT  // Right encoder clockwise
+                &kp KSC_PREV  // Right encoder counter-clockwise
             >;
         };
     };
 
-    // Encoder definitions
+    // Encoder definitions - fixed to remove deprecated properties
     left_encoder: encoder_left {
         compatible = "alps,ec11";
-        label = "LEFT_ENCODER";
         a-gpios = <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&gpio0 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        resolution = <4>;
+        steps = <20>;
     };
 
     right_encoder: encoder_right {
         compatible = "alps,ec11";
-        label = "RIGHT_ENCODER";
         a-gpios = <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&gpio0 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        resolution = <4>;
+        steps = <20>;
     };
 
     sensors {
         compatible = "zmk,keymap-sensors";
         sensors = <&left_encoder &right_encoder>;
-        triggers-per-rotation = <20>;
     };
 };
