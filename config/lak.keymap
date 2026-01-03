@@ -1,7 +1,6 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/encoder.h>
 
 #define DEFAULT 0
 #define LAYER_1 1
@@ -66,43 +65,26 @@
         };
     };
 
-    encoders {
-        compatible = "zmk,encoders";
-        
-        // Encoder trái (góc trái dưới)
-        encoder_left: encoder_left {
-            status = "okay";
-            a-gpios = <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;  // P0.20 - chung cả 2 encoder
-            b-gpios = <&gpio0 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;  // P0.17
-            resolution = <4>;
-            bindings = <
-                &kp C_VOL_UP    // Xoay lên (layer 0)
-                &kp C_VOL_DN    // Xoay xuống (layer 0)
-                &kp PG_UP       // Xoay lên (layer 1)
-                &kp PG_DN       // Xoay xuống (layer 1)
-                &kp RIGHT_ARROW // Xoay lên (layer 2)
-                &kp LEFT_ARROW  // Xoay xuống (layer 2)
-                &kp UP_ARROW    // Xoay lên (layer 3)
-                &kp DOWN_ARROW  // Xoay xuống (layer 3)
-            >;
-        };
+    // Encoder definitions
+    left_encoder: encoder_left {
+        compatible = "alps,ec11";
+        label = "LEFT_ENCODER";
+        a-gpios = <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&gpio0 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        resolution = <4>;
+    };
 
-        // Encoder phải (góc phải dưới)
-        encoder_right: encoder_right {
-            status = "okay";
-            a-gpios = <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;  // P0.20 - chung cả 2 encoder
-            b-gpios = <&gpio0 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;   // P0.08
-            resolution = <4>;
-            bindings = <
-                &kp C_BRI_UP    // Xoay lên (layer 0) - Tăng độ sáng
-                &kp C_BRI_DN    // Xoay xuống (layer 0) - Giảm độ sáng
-                &kp HOME        // Xoay lên (layer 1)
-                &kp END         // Xoay xuống (layer 1)
-                &kp TAB         // Xoay lên (layer 2)
-                &kp LG(TAB)     // Xoay xuống (layer 2) - Alt+Tab
-                &kp KSC_NEXT    // Xoay lên (layer 3) - Next track
-                &kp KSC_PREV    // Xoay xuống (layer 3) - Previous track
-            >;
-        };
+    right_encoder: encoder_right {
+        compatible = "alps,ec11";
+        label = "RIGHT_ENCODER";
+        a-gpios = <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&gpio0 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        resolution = <4>;
+    };
+
+    sensors {
+        compatible = "zmk,keymap-sensors";
+        sensors = <&left_encoder &right_encoder>;
+        triggers-per-rotation = <20>;
     };
 };
