@@ -6,80 +6,69 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 
 / {
-	chosen {
-		zmk,kscan = &kscan0;
-		zmk,matrix_transform = &default_transform;
-	};
+    chosen {
+        zmk,kscan = &kscan0;
+        zmk,matrix_transform = &default_transform;
+    };
 
-	default_transform: keymap_transform_0 {
-		compatible = "zmk,matrix-transform";
-		columns = <10>;
-		rows = <4>;
-		// | MX1  | MX2  | MX3  | MX4  | MX5  | MX6  | MX7  | MX8  | MX9  | MX10 |
-		// | MX11 | MX12 | MX13 | MX14 | MX15 | MX16 | MX17 | MX18 | MX19 | MX20 |
-		// | MX21 | MX22 | MX23 | MX24 | MX25 | MX26 | MX27 | MX28 | MX29 | MX30 |
-		//               | MX31 | MX32 | MX33 | MX34 | MX35 | MX36 | MX37 | MX38 | MX39 | MX40 |
-		//               | ENC_L                                                       | ENC_R |
-		map = <
-			RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4) RC(0,5) RC(0,6) RC(0,7) RC(0,8) RC(0,9)
-			RC(1,0) RC(1,1) RC(1,2) RC(1,3) RC(1,4) RC(1,5) RC(1,6) RC(1,7) RC(1,8) RC(1,9)
-			RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5) RC(2,6) RC(2,7) RC(2,8) RC(2,9)
-			RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(3,6) RC(3,7) RC(3,8) RC(3,9)
-		>;
-	};
+    default_transform: keymap_transform_0 {
+        compatible = "zmk,matrix-transform";
+        columns = <10>;
+        rows = <4>;
+        map = <
+            RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4) RC(0,5) RC(0,6) RC(0,7) RC(0,8) RC(0,9)
+            RC(1,0) RC(1,1) RC(1,2) RC(1,3) RC(1,4) RC(1,5) RC(1,6) RC(1,7) RC(1,8) RC(1,9)
+            RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5) RC(2,6) RC(2,7) RC(2,8) RC(2,9)
+            RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(3,6) RC(3,7) RC(3,8) RC(3,9)
+        >;
+    };
 
-	kscan0: kscan {
-		compatible = "zmk,kscan-gpio-matrix";
-		label = "KSCAN";
-		
-		// Diode direction: col2row (diodes connected to rows)
-		diode-direction = "col2row";
+    kscan0: kscan {
+        compatible = "zmk,kscan-gpio-matrix";
+        
+        // Diode direction: col2row (diodes connected to rows)
+        diode-direction = "col2row";
 
-		// Column GPIO configurations (10 columns) - REVERSED ORDER
-		col-gpios = <
-			&gpio1 4  GPIO_ACTIVE_HIGH  // Col 9 -> P1.04 (now Col 0)
-			&gpio1 6  GPIO_ACTIVE_HIGH  // Col 8 -> P1.06 (now Col 1)
-			&gpio0 9  GPIO_ACTIVE_HIGH  // Col 7 -> P0.09 (now Col 2)
-			&gpio0 10 GPIO_ACTIVE_HIGH  // Col 6 -> P0.10 (now Col 3)
-			&gpio1 11 GPIO_ACTIVE_HIGH  // Col 5 -> P1.11 (now Col 4)
-			&gpio1 13 GPIO_ACTIVE_HIGH  // Col 4 -> P1.13 (now Col 5)
-			&gpio1 15 GPIO_ACTIVE_HIGH  // Col 3 -> P1.15 (now Col 6)
-			&gpio0 2  GPIO_ACTIVE_HIGH  // Col 2 -> P0.02 (now Col 7)
-			&gpio0 29 GPIO_ACTIVE_HIGH  // Col 1 -> P0.29 (now Col 8)
-			&gpio0 31 GPIO_ACTIVE_HIGH  // Col 0 -> P0.31 (now Col 9)
-		>;
+        // Column GPIO configurations (10 columns) - REVERSED ORDER
+        col-gpios = <
+            &gpio1 4  GPIO_ACTIVE_HIGH  // Col 9 -> P1.04 (now Col 0)
+            &gpio1 6  GPIO_ACTIVE_HIGH  // Col 8 -> P1.06 (now Col 1)
+            &gpio0 9  GPIO_ACTIVE_HIGH  // Col 7 -> P0.09 (now Col 2)
+            &gpio0 10 GPIO_ACTIVE_HIGH  // Col 6 -> P0.10 (now Col 3)
+            &gpio1 11 GPIO_ACTIVE_HIGH  // Col 5 -> P1.11 (now Col 4)
+            &gpio1 13 GPIO_ACTIVE_HIGH  // Col 4 -> P1.13 (now Col 5)
+            &gpio1 15 GPIO_ACTIVE_HIGH  // Col 3 -> P1.15 (now Col 6)
+            &gpio0 2  GPIO_ACTIVE_HIGH  // Col 2 -> P0.02 (now Col 7)
+            &gpio0 29 GPIO_ACTIVE_HIGH  // Col 1 -> P0.29 (now Col 8)
+            &gpio0 31 GPIO_ACTIVE_HIGH  // Col 0 -> P0.31 (now Col 9)
+        >;
 
-		// Row GPIO configurations (4 rows) with pull-down
-		row-gpios = <
-			&gpio0 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)  // Row 0 - PE6 -> P0.11
-			&gpio1 0  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)  // Row 1 - PD7 -> P1.00
-			&gpio0 24 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)  // Row 2 - PC6 -> P0.24
-			&gpio0 22 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)  // Row 3 - PD4 -> P0.22
-		>;
-	};
+        // Row GPIO configurations (4 rows) with pull-down
+        row-gpios = <
+            &gpio0 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)  // Row 0 - PE6 -> P0.11
+            &gpio1 0  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)  // Row 1 - PD7 -> P1.00
+            &gpio0 24 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)  // Row 2 - PC6 -> P0.24
+            &gpio0 22 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)  // Row 3 - PD4 -> P0.22
+        >;
+    };
 
-	// Encoder definitions - 2 encoders sharing common pin A (P0.20)
-	sensors {
-		compatible = "zmk,keymap-sensors";
-		
-		// Left encoder (góc trái dưới - vị trí (col0, row3))
-		sensor_left: sensor_left {
-			compatible = "alps,ec11";
-			label = "ENCODER_LEFT";
-			a-gpios = <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;  // Common pin A - P0.20
-			b-gpios = <&gpio0 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;  // Pad_b1 PD1 -> P0.17
-			resolution = <4>;
-			status = "okay";
-		};
+    // Encoder definitions - SỬA: Xóa thuộc tính deprecated
+    left_encoder: encoder_left {
+        compatible = "alps,ec11";
+        a-gpios = <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&gpio0 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        steps = <20>;  // THAY resolution = <4> BẰNG steps = <20>
+    };
 
-		// Right encoder (góc phải dưới - vị trí (col9, row3))
-		sensor_right: sensor_right {
-			compatible = "alps,ec11";
-			label = "ENCODER_RIGHT";
-			a-gpios = <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;  // Common pin A - P0.20 (shared)
-			b-gpios = <&gpio0 8  (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;  // Pad_b2 RX1/PD2 -> P0.08
-			resolution = <4>;
-			status = "okay";
-		};
-	};
+    right_encoder: encoder_right {
+        compatible = "alps,ec11";
+        a-gpios = <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&gpio0 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        steps = <20>;  // THAY resolution = <4> BẰNG steps = <20>
+    };
+
+    sensors {
+        compatible = "zmk,keymap-sensors";
+        sensors = <&left_encoder &right_encoder>;
+    };
 };
