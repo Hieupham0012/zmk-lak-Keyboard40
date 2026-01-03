@@ -1,8 +1,12 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/encoder.h>
 
 #define DEFAULT 0
+#define LAYER_1 1
+#define LAYER_2 2
+#define LAYER_3 3
 
 / {
     combos {
@@ -25,19 +29,79 @@
             // 1 2 3 4 b s l d u r
 
             bindings = <
-&kp Q  &kp W      &kp E         &kp R         &kp T     &kp Y      &kp U     &kp I      &kp O    &kp P
-&kp A  &kp S      &kp D         &kp F         &kp G     &kp H      &kp J     &kp K      &kp L    &kp SEMI
-&kp Z  &kp X      &kp C         &kp V         &kp B     &kp N      &kp M     &kp COMMA  &kp DOT  &kp FSLH
-&to 1  &kp LCTRL  &kp LEFT_ALT  &kp LEFT_WIN  &kp BSPC  &kp SPACE  &kp LEFT  &kp DOWN   &kp UP   &kp RIGHT
+                &kp Q  &kp W      &kp E         &kp R         &kp T     &kp Y      &kp U     &kp I      &kp O    &kp P
+                &kp A  &kp S      &kp D         &kp F         &kp G     &kp H      &kp J     &kp K      &kp L    &kp SEMI
+                &kp Z  &kp X      &kp C         &kp V         &kp B     &kp N      &kp M     &kp COMMA  &kp DOT  &kp FSLH
+                &to 1  &kp LCTRL  &kp LEFT_ALT  &kp LEFT_WIN  &kp BSPC  &kp SPACE  &kp LEFT  &kp DOWN   &kp UP   &kp RIGHT
             >;
         };
 
         layer_1 {
             bindings = <
-&bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans  &trans  &trans  &trans
-&trans      &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans
-&trans      &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans
-&to 0       &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans
+                &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans  &trans  &trans  &trans
+                &trans      &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans
+                &trans      &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans
+                &to 0       &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans
+            >;
+        };
+
+        // Layer 2 - Trống, có thể cấu hình sau
+        layer_2 {
+            bindings = <
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &to 0   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+            >;
+        };
+
+        // Layer 3 - Trống, có thể cấu hình sau
+        layer_3 {
+            bindings = <
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &to 0   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+            >;
+        };
+    };
+
+    encoders {
+        compatible = "zmk,encoders";
+        
+        // Encoder trái (góc trái dưới)
+        encoder_left: encoder_left {
+            status = "okay";
+            a-gpios = <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;  // P0.20 - chung cả 2 encoder
+            b-gpios = <&gpio0 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;  // P0.17
+            resolution = <4>;
+            bindings = <
+                &kp C_VOL_UP    // Xoay lên (layer 0)
+                &kp C_VOL_DN    // Xoay xuống (layer 0)
+                &kp PG_UP       // Xoay lên (layer 1)
+                &kp PG_DN       // Xoay xuống (layer 1)
+                &kp RIGHT_ARROW // Xoay lên (layer 2)
+                &kp LEFT_ARROW  // Xoay xuống (layer 2)
+                &kp UP_ARROW    // Xoay lên (layer 3)
+                &kp DOWN_ARROW  // Xoay xuống (layer 3)
+            >;
+        };
+
+        // Encoder phải (góc phải dưới)
+        encoder_right: encoder_right {
+            status = "okay";
+            a-gpios = <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;  // P0.20 - chung cả 2 encoder
+            b-gpios = <&gpio0 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;   // P0.08
+            resolution = <4>;
+            bindings = <
+                &kp C_BRI_UP    // Xoay lên (layer 0) - Tăng độ sáng
+                &kp C_BRI_DN    // Xoay xuống (layer 0) - Giảm độ sáng
+                &kp HOME        // Xoay lên (layer 1)
+                &kp END         // Xoay xuống (layer 1)
+                &kp TAB         // Xoay lên (layer 2)
+                &kp LG(TAB)     // Xoay xuống (layer 2) - Alt+Tab
+                &kp KSC_NEXT    // Xoay lên (layer 3) - Next track
+                &kp KSC_PREV    // Xoay xuống (layer 3) - Previous track
             >;
         };
     };
