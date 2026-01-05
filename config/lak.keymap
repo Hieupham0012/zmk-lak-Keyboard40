@@ -27,61 +27,77 @@
         compatible = "zmk,keymap";
 
         default_layer {
-            // Q W E R T Y U I O P
-            // A S D F G H J K L ;
-            // Z X C V B N M , . /
-            // 1 2 3 4 b s l d u r
-
             bindings = <
-&kp Q  &kp W      &kp E         &kp R         &kp T     &kp Y      &kp U     &kp I      &kp O    &kp P
-&kp A  &kp S      &kp D         &kp F         &kp G     &kp H      &kp J     &kp K      &kp L    &kp SEMI
-&kp Z  &kp X      &kp C         &kp V         &kp B     &kp N      &kp M     &kp COMMA  &kp DOT  &kp FSLH
-&to 1  &kp LCTRL  &kp LEFT_ALT  &kp LEFT_WIN  &kp BSPC  &kp SPACE  &kp LEFT  &kp DOWN   &kp UP   &kp RIGHT
+                &kp Q  &kp W      &kp E         &kp R         &kp T     &kp Y      &kp U     &kp I      &kp O    &kp P
+                &kp A  &kp S      &kp D         &kp F         &kp G     &kp H      &kp J     &kp K      &kp L    &kp SEMI
+                &kp Z  &kp X      &kp C         &kp V         &kp B     &kp N      &kp M     &kp COMMA  &kp DOT  &kp FSLH
+                &to 1  &kp LCTRL  &kp LEFT_ALT  &kp LEFT_WIN  &kp BSPC  &kp SPACE  &kp LEFT  &kp DOWN   &kp UP   &kp RIGHT
             >;
 
-            // ENCODER LEFT: Volume Up/Down | ENCODER RIGHT: Brightness Up/Down
+            // ENCODER BINDINGS với chân A chung
+            // Encoder trái: Volume | Encoder phải: Brightness
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_UP C_BRI_DN>;
         };
 
         layer_1 {
             bindings = <
-&bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans  &trans  &trans  &trans
-&trans      &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans
-&trans      &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans
-&to 2       &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans
+                &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans  &trans  &trans  &trans
+                &trans      &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans
+                &trans      &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans
+                &to 2       &trans        &trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans
             >;
 
-            // ENCODER LEFT: Page Up/Down | ENCODER RIGHT: Home/End
+            // Encoder trái: Page | Encoder phải: Home/End
             sensor-bindings = <&inc_dec_kp PG_UP PG_DN &inc_dec_kp HOME END>;
         };
 
-        // Layer 2 - Trống
         layer_2 {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&to 3   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &to 3   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
             >;
 
-            // ENCODER LEFT: Right/Left Arrow | ENCODER RIGHT: Tab/Alt+Tab
+            // Encoder trái: Arrows | Encoder phải: Tab
             sensor-bindings = <&inc_dec_kp RIGHT_ARROW LEFT_ARROW &inc_dec_kp TAB LG(TAB)>;
         };
 
-        // Layer 3 - Trống
         layer_3 {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&to 0   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &to 0   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
             >;
 
-            // ENCODER LEFT: Up/Down Arrow | ENCODER RIGHT: Next/Prev Track
+            // Encoder trái: Navigation | Encoder phải: Media
             sensor-bindings = <&inc_dec_kp UP_ARROW DOWN_ARROW &inc_dec_kp C_NEXT C_PREV>;
         };
     };
 
-    // KHÔNG CẦN phần encoder definitions ở đây
-    // Đã được định nghĩa trong file overlay (lak.overlay)
+    // QUAN TRỌNG: ĐỊNH NGHĨA ENCODER VỚI CHÂN A CHUNG
+    // Phần này phải KHỚP với overlay
+    
+    // Encoder trái - dùng chân A chung (P0.20)
+    left_encoder: encoder_left {
+        compatible = "alps,ec11";
+        a-gpios = <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;  // CHÂN A CHUNG
+        b-gpios = <&gpio0 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;  // B TRÁI
+        steps = <4>;  // Giá trị nhỏ để test
+    };
+
+    // Encoder phải - CÙNG chân A (P0.20)
+    right_encoder: encoder_right {
+        compatible = "alps,ec11";
+        a-gpios = <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;  // CÙNG CHÂN A
+        b-gpios = <&gpio0 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;   // B PHẢI
+        steps = <20>;  // Giá trị nhỏ để test
+    };
+
+    // Liên kết encoders với keymap
+    sensors {
+        compatible = "zmk,keymap-sensors";
+        sensors = <&left_encoder &right_encoder>;
+    };
 };
