@@ -25,9 +25,8 @@
 
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-matrix";
-        
-        // Diode direction: col2row (diodes connected to rows)
         diode-direction = "col2row";
+        wakeup-source;  // QUAN TRỌNG: Cho phép encoder đánh thức keyboard
 
         // Column GPIO configurations (10 columns) - REVERSED ORDER
         col-gpios = <
@@ -52,19 +51,21 @@
         >;
     };
 
-    // Encoder definitions - SỬA: Xóa thuộc tính deprecated
+    // Encoder definitions - 2 encoders sharing common pin A (P0.20)
     left_encoder: encoder_left {
         compatible = "alps,ec11";
-        a-gpios = <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        b-gpios = <&gpio0 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        steps = <20>;  // THAY resolution = <4> BẰNG steps = <20>
+        a-gpios = <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;  // Common pin A - P0.20
+        b-gpios = <&gpio0 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;  // Pad_b1 PD1 -> P0.17
+        steps = <20>;  // Độ nhạy trung bình, tốt cho chân A chung
+        wakeup-source;  // Cho phép encoder đánh thức từ sleep
     };
 
     right_encoder: encoder_right {
         compatible = "alps,ec11";
-        a-gpios = <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        b-gpios = <&gpio0 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        steps = <4>;  
+        a-gpios = <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;  // Common pin A - P0.20 (shared)
+        b-gpios = <&gpio0 8  (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;  // Pad_b2 RX1/PD2 -> P0.08
+        steps = <20>;  // Cùng giá trị với encoder trái để nhất quán
+        wakeup-source;  // Cho phép encoder đánh thức từ sleep
     };
 
     sensors {
